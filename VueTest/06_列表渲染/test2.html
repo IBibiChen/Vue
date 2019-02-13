@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06_列表渲染_过滤与排序</title>
+</head>
+<body>
+<!--
+    1. 列表过滤
+    2. 列表排序
+-->
+
+<div id="demo">
+    <input type="text" v-model="searchName">
+    <ul>
+        <li v-for="(p, index) in filterPersons" :key="index">
+            {{index}}---{{p.name}}---{{p.age}}
+        </li>
+    </ul>
+
+    <button @click="setOrderType(2)">年龄升序</button>
+    <button @click="setOrderType(1)">年龄降序</button>
+    <button @click="setOrderType(0)">原本顺序</button>
+
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#demo',
+        data: {
+            searchName: '',
+            orderType: 0, // 0 代表原本，1 代表升序，2 代表降序
+            persons: [
+                {name: 'Tom', age: 18},
+                {name: 'Jack', age: 16},
+                {name: 'Bob', age: 18},
+                {name: 'Rose', age: 23},
+            ]
+        },
+
+        methods: {
+            setOrderType(orderType) {
+                this.orderType = orderType;
+            }
+        },
+
+        computed: {
+            filterPersons() {
+                // 取出相关的数据
+                const {searchName, persons, orderType} = this;
+                // 最终需要显示的数组
+                let fPersons = [...persons];
+                // 对 persons 进行过滤
+                if (searchName.trim()) {
+                    fPersons = persons.filter(p => p.name.toUpperCase().indexOf(searchName.trim().toUpperCase()) !== -1);
+                }
+
+                // 排序
+                if (orderType !== 0) {
+                    // 如果返回负数 p1 在前，返回正数 p2 在前
+                    fPersons.sort(function (p1, p2) {
+                        // 1 代表升序，2 代表降序
+                        if (orderType === 2) {
+                            return p2.age - p1.age;
+                        } else {
+                            return p1.age - p2.age;
+                        }
+                    })
+                }
+                return fPersons;
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
