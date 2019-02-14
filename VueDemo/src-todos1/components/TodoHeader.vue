@@ -8,8 +8,7 @@
 <script>
   export default {
     props: {
-      // App 中 <TodoHeader :addTodo="addTodo"/>
-      // addTodo: Function
+      addTodo: Function
     },
     data() {
       return {
@@ -28,11 +27,7 @@
         // 2. 根据输入生成一个 todo 对象
         const todo = {title, complete: false};
         // 3. 添加到 todos
-        // addTodo(todo);
-
-        // 触发自定义事件：addTodo 事件名为 @ 符号后面的字符串
-        this.$emit('addTodo', todo);
-
+        addTodo(todo);
         // 4. 清除输入
         this.title = '';
       }

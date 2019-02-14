@@ -12,13 +12,11 @@
 </template>
 
 <script>
-  import PubSub from 'pubsub-js'
   export default {
     props: {
       todo: Object,
       index: Number,
-      // 组件间通信方式三 pubsub
-      // deleteTodo: Function
+      deleteTodo: Function
     },
 
     data() {
@@ -42,11 +40,7 @@
       deleteItem() {
         const {todo, index, deleteTodo} = this;
         if (window.confirm(`确认删除${todo.title}吗？`)) {
-          // deleteTodo(index);
-
-          // 组件间通信方式三 pubsub
-          // 发布消息
-          PubSub.publish('deleteTodo', index);
+          deleteTodo(index);
         }
       }
     }

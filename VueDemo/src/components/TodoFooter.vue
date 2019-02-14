@@ -1,46 +1,49 @@
 <template>
   <div class="todo-footer">
     <label>
-      <input type="checkbox" v-model="isAllCheck"/>
+      <!--<input type="checkbox" v-model="isAllCheck"/>-->
+      <slot name="checkAll"></slot>
     </label>
     <span>
-          <span>已完成{{completeSize}}</span> / 全部{{todos.length}}
-        </span>
-    <button class="btn btn-danger" v-show="completeSize" @click="deleteCompleteTodos">清除已完成任务</button>
+      <!--<span>已完成{{completeSize}} / 全部{{todos.length}}</span>-->
+      <slot name="count"></slot>
+    </span>
+    <!--<button class="btn btn-danger" v-show="completeSize" @click="deleteCompleteTodos">清除已完成任务</button>-->
+    <slot name="delete"></slot>
   </div>
 </template>
 
 <script>
   export default {
     props: {
-      todos: Array,
-      deleteCompleteTodos: Function,
-      selectAllTodos: Function
+      // todos: Array,
+      // deleteCompleteTodos: Function,
+      // selectAllTodos: Function
     },
 
-    computed: {
-      completeSize() {
-        // let result = 0;
-        // const {todos} = this;
-        // for (let i in todos) {
-        //   if (todos[i].complete) {
-        //     result++;
-        //   }
-        // }
-        // return result;
-        return this.todos.reduce((preTotal, todo) => preTotal + (todo.complete ? 1 : 0), 0);
-      },
-
-      isAllCheck: {
-        get() {
-          return this.completeSize === this.todos.length && this.todos.length > 0;
-        },
-
-        set(value) { // value 是当前 checkbox 最新的值
-          this.selectAllTodos(value);
-        }
-      }
-    }
+    // computed: {
+    //   completeSize() {
+    //     // let result = 0;
+    //     // const {todos} = this;
+    //     // for (let i in todos) {
+    //     //   if (todos[i].complete) {
+    //     //     result++;
+    //     //   }
+    //     // }
+    //     // return result;
+    //     return this.todos.reduce((preTotal, todo) => preTotal + (todo.complete ? 1 : 0), 0);
+    //   },
+    //
+    //   isAllCheck: {
+    //     get() {
+    //       return this.completeSize === this.todos.length && this.todos.length > 0;
+    //     },
+    //
+    //     set(value) { // value 是当前 checkbox 最新的值
+    //       this.selectAllTodos(value);
+    //     }
+    //   }
+    // }
   }
 </script>
 
