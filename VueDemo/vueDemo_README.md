@@ -78,6 +78,8 @@
         vue-resource: vue 插件, 多用于 vue1.x
         axios: 第三方库, 多用于 vue2.x
     vue-resource 使用
+        // 下载
+        npm install vue-resource --save
         // 引入模块
         import VueResource from 'vue-resource'
         // 使用插件
@@ -92,6 +94,8 @@
           console.log(response.statusText) // 错误信息
         })
     axios 使用
+        // 下载
+        npm install axios --save
         // 引入模块
         import axios from 'axios'
         
