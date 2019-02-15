@@ -19,7 +19,7 @@
           <div class="panel-body">
             <!-- 显示当前组件 <keep-alive> 缓存路由组件对象 -->
             <keep-alive>
-              <router-view></router-view>
+              <router-view msg="abc"></router-view>
             </keep-alive>
           </div>
         </div>
