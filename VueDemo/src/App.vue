@@ -17,10 +17,10 @@
       <div class="col-xs-6">
         <div class="panel">
           <div class="panel-body">
-            <!-- 显示当前组件 -->
-            <!--<keep-alive>-->
+            <!-- 显示当前组件 <keep-alive> 缓存路由组件对象 -->
+            <keep-alive>
               <router-view></router-view>
-            <!--</keep-alive>-->
+            </keep-alive>
           </div>
         </div>
       </div>
