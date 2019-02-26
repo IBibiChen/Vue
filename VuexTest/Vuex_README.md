@@ -57,7 +57,7 @@
 	一个 module 是一个 store 的配置对象
 	与一个组件(包含有共享数据)对应
 
-## 6). 向外暴露store对象
+## 6). 向外暴露 store 对象
 	export default new Vuex.Store({
 		state,
 		mutations,
