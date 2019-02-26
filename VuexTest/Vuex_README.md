@@ -7,7 +7,7 @@
 	state: 驱动应用的数据源
 	view: 以声明方式将 state 映射到视图
 	actions: 响应在 view 上的用户输入导致的状态变化(包含 n 个更新状态的方法)
-![单向数据流](https://vuex.vuejs.org/zh-cn/images/flow.png)
+![单向数据流](https://vuex.vuejs.org/flow.png)
 
 # 3. 多组件共享状态的问题
 	多个视图依赖于同一状态
@@ -16,7 +16,7 @@
 		* 将数据以及操作数据的行为都定义在父组件
 		* 将数据以及操作数据的行为传递给需要的各个子组件(有可能需要多级传递)
 	vuex 就是用来解决这个问题的
-![vuex结构](https://vuex.vuejs.org/zh-cn/images/vuex.png)
+![vuex结构](https://vuex.vuejs.org/vuex.png)
 
 # 4. vuex 的核心概念
 ## 1). state
