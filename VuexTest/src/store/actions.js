@@ -3,7 +3,7 @@
 包含多个接收组件通知触发 mutation 调用间接更新状态的方法的对象
  */
 import {ADD_TODO, DELETE_TODO, SELECT_ALL_TODOS, CLEAR_ALL_COMPLETED, RECEIVE_TODOS} from './mutation-types'
-import storageUtil from '../util/storageUtil'
+import storageUtil from '../utils/storageUtil'
 
 export default {
 

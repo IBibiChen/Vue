@@ -7,7 +7,7 @@
 <script>
   import {mapState} from 'vuex'
   import TodoItem from './TodoItem'
-  import storageUtil from '../util/storageUtil'
+  import storageUtil from '../utils/storageUtil'
 
   export default {
     computed: {

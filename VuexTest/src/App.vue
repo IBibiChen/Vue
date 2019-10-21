@@ -9,11 +9,11 @@
 </template>
 
 <script>
-  import TodoHeader from './TodoHeader'
-  import TodoList from './TodoList'
-  import TodoFooter from './TodoFooter'
+  import TodoHeader from './components/TodoHeader'
+  import TodoList from './components/TodoMain'
+  import TodoFooter from './components/TodoFooter'
 
-  import storageUtil from '../util/storageUtil'
+  import storageUtil from './utils/storageUtil'
 
   export default {
 
