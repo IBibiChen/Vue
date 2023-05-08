@@ -13,7 +13,7 @@
   import Item from './Item'
 
   export default {
-    // 声明接受属性: 这个属性就会成为组件对象的属性
+    // 声明接收属性: 这个属性就会成为组件对象的属性
     // <List :comments="comments"/>
     props: ['comments', 'deleteComment'], // 只指定属性名
 
