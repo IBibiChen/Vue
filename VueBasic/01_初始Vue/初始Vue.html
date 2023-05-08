@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>初始 Vue</title>
+</head>
+<body>
+
+<!--
+    1. 引入 Vue.js
+    2. 创建 Vue 对象/实例，且要传入一个配置对象
+        el : 指定根 element(选择器)
+        data : 初始化数据(页面可以访问)
+    3. 双向数据绑定 : v-model
+    4. 显示数据 : {{xxx}}
+    5. 理解 vue 的 mvvm 实现
+    6. 容器里的代码依然符合 html 规范，只不过混入了一些特殊的 Vue 语法
+    7. 容器里的代码被称为【Vue 模板】
+    8. Vue 实例和容器是一一对应的
+    9. 真实开发中只有一个 Vue 实例，并且会配合着组件一起使用
+    10. {{xxx}} 中的 xxx 要写 js 表达式，且 xxx 可以自动读取到 data 中的所有属性
+    11. 一旦 data 中的数据发生改变，那么页面中用到该数据的地方也会自动更新
+
+    大括号表达式：读取 data 中数据显示
+    数据绑定与双向数据绑定
+        数据绑定：数据在页面与内存中的变量自动转移
+        双向数据绑定：如果 2 个方向数据都可以自动转移
+-->
+
+<!-- 准备好一个容器 -->
+<div id="root"> <!-- view -->
+    <input type="text" v-model="msg">
+    <p>{{msg}}</p>
+</div>
+<h1>{{msg}}</h1>
+
+<!-- 引入 Vue -->
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    // 阻止 vue 在启动时生成生产提示
+    Vue.config.productionTip = false
+
+    // 创建 Vue 实例，Vue 是一个 vue.js 库提供的构建函数
+    const vm = new Vue({ // 配置对象 options
+        // 配置选项(option)
+        el: '#root',  // element: 选择器 指定用 vue 来管理页面中的哪个标签区域，值通常为 css 选择器字符串
+        data: { // 数据(model)、data 中用于存储数据，数据供 el 所指定的容器去使用，值暂时先写成一个对象
+            msg: 'Hello Vue!'
+        }
+    })
+</script>
+<!--
+    MVVM:
+    model：模型，数据对象(data)
+    view：视图，模板页面
+    viewModel：视图模型(Vue 的实例)
+-->
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表过滤</title>
+</head>
+<body>
+
+<!-- 准备好一个容器 -->
+<div id="root">
+    <h3>人员列表</h3>
+    <input type="text" placeholder="请输入名字" v-model="keyWord">
+    <ul>
+        <li v-for="(p, index) of filPersons" :key="index">
+            {{p.name}} - {{p.age}} - {{p.sex}}
+        </li>
+    </ul>
+</div>
+
+<!-- 引入 Vue -->
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    // 阻止 vue 在启动时生成生产提示
+    Vue.config.productionTip = false
+
+    // 用 watch 实现
+    // new Vue({
+    //     el: '#root',
+    //     data: {
+    //         keyWord: '',
+    //         persons: [
+    //             {id: '001', name: '马冬梅', age: 19, sex: '女'},
+    //             {id: '002', name: '周冬雨', age: 20, sex: '女'},
+    //             {id: '003', name: '周杰伦', age: 21, sex: '男'},
+    //             {id: '004', name: '温兆伦', age: 22, sex: '男'}
+    //         ],
+    //         filPersons: []
+    //     },
+    //
+    //     // 监视属性实现
+    //     watch: {
+    //         // 简写
+    //         keyWord: {
+    //             // 初始化时让 handler 调用一下
+    //             immediate: true,
+    //             // handler 什么时候调用？当 isHot 发生改变时
+    //             handler(newVal, oldVal) {
+    //                 console.log('keyWord 被修改了~', newVal, oldVal)
+    //
+    //                 this.filPersons = this.persons.filter((p) => {
+    //                     return p.name.indexOf(this.keyWord) !== -1
+    //                 })
+    //             }
+    //         }
+    //
+    //         // 简写
+    //         // keyWord(newVal, oldVal) {
+    //         //     console.log('keyWord 被修改了~', newVal, oldVal)
+    //         //     this.filPersons = this.persons.filter((p) => {
+    //         //         return p.name.indexOf(this.keyWord) !== -1
+    //         //     })
+    //         // }
+    //     }
+    // })
+
+    // 用 computed 实现
+    new Vue({
+        el: '#root',
+        data: {
+            keyWord: '',
+            persons: [
+                {id: '001', name: '马冬梅', age: 19, sex: '女'},
+                {id: '002', name: '周冬雨', age: 20, sex: '女'},
+                {id: '003', name: '周杰伦', age: 21, sex: '男'},
+                {id: '004', name: '温兆伦', age: 22, sex: '男'}
+            ]
+        },
+
+        // 计算属性实现
+        computed: {
+            filPersons() {
+                return this.persons.filter((p) => {
+                    return p.name.indexOf(this.keyWord) !== -1
+                })
+            }
+        }
+
+    })
+
+</script>
+</body>
+</html>

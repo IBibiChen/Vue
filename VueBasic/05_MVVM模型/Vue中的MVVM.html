@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>理解 Vue 中的 MVVM</title>
+</head>
+<body>
+<!--
+    MVVM 模型
+      1. Model：模型，数据对象(data)
+      2. View：视图，模板代码页面
+      3. ViewModel：视图模型(Vue 的实例)
+    观察发现
+      1. data 中所有的属性，最后都出现在了 vm 身上
+      2. vm 身上所有的属性 及 Vue 原型上所有属性，在 Vue 模板中都可以直接使用
+-->
+
+<!-- 准备好一个容器 -->
+<div id="root">
+    <h1>学校名称：{{name}}</h1>
+    <h1>学校地址：{{address}}</h1>
+    <!--<h1>测试一下1：{{1 + 1}}</h1>-->
+    <!--<h1>测试一下2：{{$options}}</h1>-->
+    <!--<h1>测试一下3：{{$emit}}</h1>-->
+    <!--<h1>测试一下4：{{_c}}</h1>-->
+</div>
+
+<!-- 引入 Vue -->
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    // 阻止 vue 在启动时生成生产提示
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        el: '#root',
+        data() {
+            return {
+                name: 'MetaStack',
+                address: 'zh'
+            }
+        }
+    })
+    console.log(vm)
+</script>
+</body>
+</html>

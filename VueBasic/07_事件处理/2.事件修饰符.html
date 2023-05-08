@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+</head>
+<body>
+<!--
+    1. 绑定监听:
+       v-on:xxx="fun"
+       @xxx="fun"
+       @xxx="fun(参数)"
+       默认事件形参: event
+       隐含属性对象: $event
+
+    2. 事件修饰符:
+       .prevent: 阻止事件的默认行为 event.preventDefault()（常用）
+       .stop: 停止事件冒泡 event.stopPropagation()（常用）
+       .once: 事件只触发一次（常用）
+
+       .capture: 使用事件的捕获模式
+       .self: 只有 event.target 是当前操作的元素时才触发事件
+       .passive: 事件的默认行为立即执行，无需等待事件回调执行完毕
+
+    3. 按键修饰符
+       .keycode: 操作的是某个 keycode 值的健
+       .enter: 操作的是 enter 键
+-->
+
+<!-- 准备好一个容器 -->
+<div id="root">
+    <h3>欢迎 {{name}}</h3>
+    <!-- 阻止事件的默认行为（常用） -->
+    <a href="https://www.baidu.com" @click.prevent="showInfo">点我提示信息</a>
+
+    <!-- 阻止事件冒泡（常用） -->
+    <div class="demo1" @click="showInfo">
+        <button @click.stop="showInfo">点我提示信息</button>
+        <!-- 修饰符可以连续写 -->
+        <!-- <a href="https://www.atguigu.com" @click.prevent.stop="showInfo">点我提示信息</a> -->
+    </div>
+
+    <!-- 事件只触发一次（常用） -->
+    <button @click.once="showInfo">点我提示信息</button>
+
+    <!-- 使用事件的捕获模式 -->
+    <div class="box1" @click.capture="showMsg(1)">
+        div1
+        <div class="box2" @click="showMsg(2)">
+            div2
+        </div>
+    </div>
+
+    <!-- 只有 event.target 是当前操作的元素时才触发事件 -->
+    <div class="demo1" @click.self="showInfo">
+        <button @click="showInfo">点我提示信息</button>
+    </div>
+
+    <!-- 事件的默认行为立即执行，无需等待事件回调执行完毕 -->
+    <ul @wheel.passive="demo" class="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+
+</div>
+
+<!-- 引入 Vue -->
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    // 阻止 vue 在启动时生成生产提示
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        el: '#root',
+        data() {
+            return {
+                name: 'Meta'
+            }
+        },
+
+        methods: {
+            showInfo(event) {
+                console.log(event.target)
+                console.log('this = ', this)// 此处的 this 是 vm
+                console.log('this === vm = ', this === vm)
+                // event.preventDefault()
+                alert('你好！')
+            },
+            showMsg(msg) {
+                console.log(msg)
+            },
+            demo() {
+                for (let i = 0; i < 1000; i++) {
+                    console.log('#')
+                }
+                console.log('累坏了')
+            }
+        }
+    })
+</script>
+</body>
+<style>
+    * {
+        margin-top: 20px;
+    }
+
+    .demo1 {
+        height: 50px;
+        background-color: skyblue;
+    }
+
+    .box1 {
+        padding: 5px;
+        background-color: skyblue;
+    }
+
+    .box2 {
+        padding: 5px;
+        background-color: orange;
+    }
+
+    .list {
+        width: 200px;
+        height: 200px;
+        background-color: peru;
+        overflow: auto;
+    }
+
+    li {
+        height: 100px;
+    }
+</style>
+</html>

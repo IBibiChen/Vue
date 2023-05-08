@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>el 与 data 的两种写法</title>
+</head>
+<body>
+<!--
+    data 与 el 的 2 种写法
+      1. el 有 2 种写法
+         (1). new Vue 时候配置 el 属性
+         (2). 先创建 Vue 实例，随后再通过 vm.$mount('#root') 指定 el 的值
+      2. data 有 2 种写法
+         (1). 对象式
+         (2). 函数式
+         如何选择：目前哪种写法都可以，以后学习到组件时，data 必须使用函数式，否则会报错。
+      3. 一个重要的原则：
+         由 Vue 管理的函数，一定不要写箭头函数，一旦写了箭头函数，this 就不再是 Vue 实例了。
+-->
+
+<!-- 准备好一个容器 -->
+<div id="root">
+    <h1>你好，{{name}}</h1>
+</div>
+
+<!-- 引入 Vue -->
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+
+    // el 的两种写法
+    const vm = new Vue({
+        // 第一种写法
+        // el: '#root',
+        data: {
+            name: 'A'
+        }
+    })
+    console.log(vm)
+
+    // 第二种写法
+    // vm.$mount('#root')
+
+    // setTimeout(() => {
+    //     vm.$mount('#root')
+    // }, 1000)
+
+    // data 的两种写法
+    new Vue({
+        el: '#root',
+        // data 的第一种写法：对象式
+        // data: {
+        //     name: 'A'
+        // }
+
+        // data 的第二种写法：函数式
+        // data: function () {
+        //     // 此处的 this 是 Vue 实例对象
+        //     console.log('@@@', this)
+        //     return {
+        //         name: 'A'
+        //     }
+        // }
+
+        // 简化
+        data() {
+            // 此处的 this 是 Vue 实例对象
+            console.log('@@@', this)
+            return {
+                name: 'MetaStack'
+            }
+        }
+
+        // 箭头函数，没有自己的 this
+        // data: () => {
+        //     // 此处的 this 是全局的 Window
+        //     console.log('@@@', this)
+        //     return {
+        //         name: 'A'
+        //     }
+        // }
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件的基本使用</title>
+</head>
+<body>
+<!--
+    事件的基本使用
+      1. 使用 v-on:xxx 或 @xxx 绑定事件，其中 xxx 是事件名
+      2. 事件的回调需要配置在 methods 对象中，最终会在 vm 上
+      3. methods 中配置的函数，不要用箭头函数！否则 this 就不是 vm 了
+      4. methods 中配置的函数，都是被 Vue 所管理的函数，this 的指向是 vm 或 组件实例对象
+      5. @click="demo" 和 @click="demo($event)" 效果一致，但后者可以传参
+-->
+<!--
+    1. 绑定监听:
+       v-on:xxx="fun"
+       @xxx="fun"
+       @xxx="fun(参数)"
+       默认事件形参: event
+       隐含属性对象: $event
+    2. 事件修饰符:
+       .prevent: 阻止事件的默认行为 event.preventDefault()
+       .stop: 停止事件冒泡 event.stopPropagation()
+    3. 按键修饰符
+       .keycode: 操作的是某个 keycode 值的健
+       .enter: 操作的是 enter 键
+-->
+
+<!-- 准备好一个容器 -->
+<div id="root">
+    <h3>欢迎 {{name}}</h3>
+    <!--<button v-on:click="showInfo">点我提示信息</button>-->
+    <button @click="showInfo1">点我提示信息1(不传参)</button>
+    <button @click="showInfo2($event,666)">点我提示信息2(传参)</button>
+
+
+    <h2>1. 绑定监听</h2>
+    <button @click="test1">test1</button>
+    <button @click="test2('atguigu')">test2</button>
+    <button @click="test3($event)">test3</button>
+    <button @click="test4(123, $event)">test4</button>
+
+    <h2>2. 事件修饰符</h2>
+    <div style="width: 200px;height: 200px; background: red" @click="test5">
+        <div style="width: 100px;height: 100px; background: blue" @click.stop="test6"></div>
+    </div>
+
+    <a href="https://www.baidu.com" @click.prevent="test7">百度一下</a>
+
+    <h2>3. 按键修饰符</h2>
+    <input type="text" @keyup.13="test8">
+    <input type="text" @keyup.enter="test8">
+
+</div>
+
+<!-- 引入 Vue -->
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    // 阻止 vue 在启动时生成生产提示
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        el: '#root',
+        data() {
+            return {
+                name: 'Meta',
+                // test1() {
+                //     alert(1)
+                // }
+            }
+        },
+
+        methods: {
+            showInfo1(event) {
+                console.log(event.target)
+                console.log('this = ', this)// 此处的 this 是 vm
+                console.log('this === vm = ', this === vm)
+                alert('你好！')
+            },
+            showInfo2(event, number) {
+                console.log(number)
+                alert('你好！！')
+            },
+
+
+            test1(event) {
+                console.log(event)
+            },
+            test2(value) {
+                console.log(value)
+            },
+            test3(event) {
+                console.log(event.target.innerHTML)
+            },
+            test4(number, event) {
+                console.log(number, event.target.innerHTML)
+            },
+            test5() {
+                console.log('out')
+            },
+            test6(event) {
+                // event.stopPropagation()
+                console.log('inner')
+            },
+            test7() {
+                console.log('点击了')
+            },
+            test8(event) {
+                // 这样写麻烦
+                // if (event.keyCode === 13) {
+                //     console.log(event.target.value + ' ' + event.keyCode)
+                // }
+                console.log(event.target.value + ' ' + event.keyCode)
+            }
+        }
+    })
+</script>
+</body>
+</html>

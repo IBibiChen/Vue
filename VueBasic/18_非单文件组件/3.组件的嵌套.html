@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件的嵌套</title>
+</head>
+<body>
+<!--
+    几个注意点
+        1. 关于组件名
+           一个单词组成：
+               第一种写法(首字母小写)：school
+               第二种写法(首字母大写)：School
+           多个单词组成：
+               第一种写法(kebab-case命名)：my-school
+               第二种写法(CamelCase命名)：MySchool (需要 Vue 脚手架支持)
+           备注：
+               (1). 组件名尽可能回避 HTML 中已有的元素名称，例如：h2、H2 都不行。
+               (2). 可以使用 name 配置项指定组件在开发者工具中呈现的名字。
+
+        2. 关于组件标签:
+           第一种写法：<school></school>
+           第二种写法：<school/>
+           备注：不用使用脚手架时，<school/> 会导致后续组件不能渲染。
+
+        3. 一个简写方式
+           const school = Vue.extend(options) 可简写为：const school = options
+-->
+
+<!-- 准备好一个容器 -->
+<div id="root">
+    <h1>{{msg}}</h1>
+    <hr>
+    <!-- 第三步：编写组件标签 -->
+    <!--<hello></hello>-->
+    <!--<School></School>-->
+
+    <!--<App></App>-->
+</div>
+
+<!-- 引入 Vue -->
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    // 阻止 vue 在启动时生成生产提示
+    Vue.config.productionTip = false
+
+    // 第一步：定义 student 组件
+    const student = Vue.extend({
+        name: 'student',
+        template: `
+          <div>
+          <h3>学生姓名：{{ studentName }}</h3>
+          <h3>学生年龄：{{ age }}</h3>
+          </div>
+        `,
+        data() {
+            return {
+                studentName: '张三',
+                age: 18
+            }
+        }
+    })
+
+    // 第一步：定义 school 组件
+    const school = Vue.extend({
+        // 组件定义时，一定不要写 el 配置项，因为最终所有的组件都要被一个 vm 管理，由 vm 决定服务于哪个容器。
+        // el: '#root',
+        name: 'school',
+        template: `
+          <div>
+          <h3>学校名称：{{ schoolName }}</h3>
+          <h3>学校地址：{{ address }}</h3>
+          <button @click="showName">点我提示学校名</button>
+          <student></student>
+          </div>
+        `,
+        data() {
+            return {
+                schoolName: '尚硅谷',
+                address: '成都'
+            }
+        },
+        methods: {
+            showName() {
+                alert(this.schoolName)
+            }
+        },
+        // 注册组件（局部注册）
+        components: {
+            student
+        }
+    })
+
+    // 第一步：定义 hello 组件
+    const hello = Vue.extend({
+        template: `
+          <div>
+          <h2>你好啊！{{ name }}</h2>
+          </div>
+        `,
+        data() {
+            return {
+                name: 'Meta'
+            }
+        }
+    })
+
+    // 定义 App 组件
+    const app = Vue.extend({
+        template: `
+          <div>
+          <hello></hello>
+          <School></School>
+          </div>
+        `,
+        components: {
+            School: school,
+            hello
+        }
+    })
+
+    // 创建 vm
+    new Vue({
+        el: '#root',
+        template: `
+          <app></app>
+        `,
+        data: {
+            msg: '欢迎学习 Vue！'
+        },
+        // 第二步：注册组件（局部注册）
+        // components: {
+        //     School: school,
+        //     hello
+        // }
+        components: {
+            App: app
+        }
+    })
+</script>
+</body>
+</html>

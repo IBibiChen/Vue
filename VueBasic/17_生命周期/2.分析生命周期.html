@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分析生命周期</title>
+</head>
+<body>
+
+<!-- 准备好一个容器 -->
+<div id="root" :x="n">
+    <h2 v-text="n"></h2>
+    <h2>当前的 n 值是：{{n}}</h2>
+    <button @click="add">点我 n+1</button>
+    <button @click="bye">点我销毁 vm</button>
+</div>
+
+<!-- 引入 Vue -->
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+    // 阻止 vue 在启动时生成生产提示
+    Vue.config.productionTip = false
+
+    new Vue({
+        el: '#root',
+        // template:`
+        // 	<div>
+        // 		<h2>当前的n值是：{{n}}</h2>
+        // 		<button @click="add">点我 n+1</button>
+        // 	</div>
+        // `,
+        data: {
+            n: 1
+        },
+        methods: {
+            add() {
+                console.log('add')
+                this.n++
+            },
+            bye() {
+                console.log('bye')
+                this.$destroy()
+            }
+        },
+        watch: {
+            n() {
+                console.log('n 变了')
+            }
+        },
+        // 1. 初始化阶段
+        beforeCreate() {
+            console.log('beforeCreate')
+            console.log(this)
+            // debugger
+        },
+        created() {
+            console.log('created')
+        },
+
+        beforeMount() {
+            console.log('beforeMount')
+        },
+
+        // 初始化显示之后立即调用(1 次)
+        mounted() {
+            console.log('mounted')
+        },
+
+        // 2. 更新阶段
+        beforeUpdate() {
+            console.log('beforeUpdate')
+        },
+        updated() {
+            console.log('updated')
+        },
+
+        // 3. 死亡阶段
+        // 销毁之前调用(1 次)
+        beforeDestroy() {
+            console.log('beforeDestroy')
+        },
+        destroyed() {
+            console.log('destroyed')
+        }
+    })
+
+</script>
+</body>
+</html>
